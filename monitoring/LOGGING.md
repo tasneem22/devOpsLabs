@@ -12,5 +12,3 @@ Logging is done using the PLG stack (Promtail, Loki, and Grafana).
   ![](./images/python-logs.png)
 - Extra app logs:
   ![](./images/express-logs.png)
-- Prometheus targets page:
-  ![](./images/targets.png)
