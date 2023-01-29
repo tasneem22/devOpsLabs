@@ -63,6 +63,10 @@ app.get('/visits', (req, res) => {
   console.log(visits)
   res.status(200).send(`<h1>${visits}</h1>`)
 })
+
+app.get('/health', (req, res) => {
+  res.status(200).send('<h1>OK</h1>')
+})
 /**
  * Server Activation
  */
