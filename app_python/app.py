@@ -20,12 +20,12 @@ def index():
     """This is the entry point for specified root"""
     visits = 0
     if os.path.exists(FILE_NAME):
-        with open(FILE_NAME, "r") as f:
-            visits = json.load(f)
+        with open(FILE_NAME, "r", encoding="utf-8") as file:
+            visits = json.load(file)
     else:
         os.makedirs(os.path.dirname(FILE_NAME), exist_ok=True)
-    with open(FILE_NAME, "w") as f:
-        json.dump(visits + 1, f)
+    with open(FILE_NAME, "w", encoding="utf-8") as file:
+        json.dump(visits + 1, file)
 
     timezone = pytz.timezone("Europe/Moscow")
     now = datetime.now(timezone).strftime("%H:%M:%S - %d/%m/%Y")
@@ -37,9 +37,13 @@ def visit():
     """Sends back the total number of visits to the root endpoint."""
     visits = 0
     if os.path.exists(FILE_NAME):
-        with open(FILE_NAME, "r") as f:
-            visits = json.load(f)
+        with open(FILE_NAME, "r", encoding="utf-8") as file:
+            visits = json.load(file)
     return jsonify(visits)
+
+@app.route("/health")
+def health():
+    return "OK"
 
 if __name__ == '__main__':
     serve(app, host="0.0.0.0", port=8080)
