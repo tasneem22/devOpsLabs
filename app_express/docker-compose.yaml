@@ -1,0 +1,11 @@
+version: "1"
+services:
+  web:
+    image: tasneemtoolba/app_express
+    volumes:
+      - app-storage:/app/visits.json
+    ports:
+      - "8080:8080"
+    restart: always
+volumes:
+  app-storage:
