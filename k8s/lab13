@@ -1,0 +1,57 @@
+# Lab
+
+## 1.  `kubectl get po,sts,svc,pvc`
+
+```sh
+
+NAME               READY   STATUS    RESTARTS   AGE
+pod/app-python-0       1/1     Running   0          90s
+pod/app-python-1       1/1     Running   0          80s
+
+NAME                      READY   AGE
+statefulset.apps/app-python-0   2/2     90s
+
+NAME                 TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP   28d
+service/app-python   LoadBalancer   10.111.229.232  <none>        80/TCP    90s
+
+NAME                                                 STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+persistentvolumeclaim/persistent-volume-app-python-0     Bound    pvc-e210a37c-651e-4487-a283-ce934fdca327   64Mi       RWO            standard       90s
+persistentvolumeclaim/persistent-volume-app-python-1     Bound    pvc-9e3d7dc1-e5cb-4014-87c5-4b45f1074429   64Mi       RWO            standard       90s
+```
+
+## 2. `kubectl pod/app-python-x -- cat visits.json`
+
+- `kubectl pod/app-python-0 -- cat visits.json`
+
+```bash
+3
+```
+
+- `kubectl pod/app-python-1 -- cat visits.json`
+
+```bash
+5
+```
+
+The time of visit in each pod are slightly different because each pod has its own correlated volume.
+
+## 3. Ordering
+
+Ordering is unnecessary because the app is independent from replicas. The StatefulSet controller can launch pods in parallel by using `podManagementPolicy: Parallel` in the `statefulset.yaml`
+
+# Bonus 
+
+## 1. Bonus app
+
+done, given similar results as above.
+
+## 2. Theoretical part
+
+### 1. 
+
+The rolling update uses a readiness probe to check if a new pod is ready, before starting to scale down pods with the old version. If there is a problem, you can stop an update and roll it back, without stopping the entire cluster. 
+
+### 2.
+
+A ramped rollout updates pods gradually, by creating new replicas while removing old ones. You can choose the number of replicas to roll out each time. You also need to make sure that no pods become unavailable. 

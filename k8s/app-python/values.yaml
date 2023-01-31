@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 3
+replicaCount: 2
 
 image:
   repository: tasneemtoolba/app_python
@@ -62,8 +62,8 @@ resources:
      cpu: 2.0
      memory: 256Mi
    requests:
-     cpu: 1.0
-     memory: 128Mi
+     cpu: 100m
+     memory: 512Mi
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -87,3 +87,20 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+
+volumes:
+  config:
+    name: config-volume
+    mountPath: /app/config.json
+    subPath: config.json
+
+  persistent:
+    name: persistent-volume
+    mountPath: /app/storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClass: ""
+      resources:
+        requests:
+          storage: 128Mi
