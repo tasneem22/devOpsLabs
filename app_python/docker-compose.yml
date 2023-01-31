@@ -1,0 +1,9 @@
+version: "1"
+services:
+  web:
+    image: tasneemtoolba/app_python
+    volumes:
+      - app-storage:/app/data
+    ports:
+      - "8080:8080"
+    restart: always
