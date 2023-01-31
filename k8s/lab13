@@ -20,22 +20,18 @@ persistentvolumeclaim/persistent-volume-app-python-0     Bound    pvc-e210a37c-6
 persistentvolumeclaim/persistent-volume-app-python-1     Bound    pvc-9e3d7dc1-e5cb-4014-87c5-4b45f1074429   64Mi       RWO            standard       90s
 ```
 
-## 2. `kubectl pod/app-python-x -- cat visits`
+## 2. `kubectl pod/app-python-x -- cat visits.json`
 
-- `kubectl pod/app-python-0 -- cat visits`
+- `kubectl pod/app-python-0 -- cat visits.json`
 
 ```bash
-08:24:04
-08:29:06
-08:34:09
+3
 ```
 
-- `kubectl pod/app-python-1 -- cat visits`
+- `kubectl pod/app-python-1 -- cat visits.json`
 
 ```bash
-08:24:06
-08:28:05
-08:34:09
+5
 ```
 
 The time of visit in each pod are slightly different because each pod has its own correlated volume.
