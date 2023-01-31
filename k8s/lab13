@@ -1,8 +1,6 @@
-# Lab 13: K8s StatefulSet
+# Lab
 
-## Part 1
-
-- `kubectl get po,sts,svc,pvc`
+## 1.  `kubectl get po,sts,svc,pvc`
 
 ```sh
 
@@ -22,7 +20,7 @@ persistentvolumeclaim/persistent-volume-app-python-0     Bound    pvc-e210a37c-6
 persistentvolumeclaim/persistent-volume-app-python-1     Bound    pvc-9e3d7dc1-e5cb-4014-87c5-4b45f1074429   64Mi       RWO            standard       90s
 ```
 
-## Part 2 : Checking pods
+## 2. `kubectl pod/app-python-x -- cat visits`
 
 - `kubectl pod/app-python-0 -- cat visits`
 
@@ -42,7 +40,7 @@ persistentvolumeclaim/persistent-volume-app-python-1     Bound    pvc-9e3d7dc1-e
 
 The time of visit in each pod are slightly different because each pod has its own correlated volume.
 
-## Part 3 : Ordering
+## 3. Ordering
 
 Ordering is unnecessary because the app is independent from replicas. The StatefulSet controller can launch pods in parallel by using `podManagementPolicy: Parallel` in the `statefulset.yaml`
 
